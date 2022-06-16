@@ -1,6 +1,7 @@
 //in this approach of reshuffling i am shuffling the images where grid are staying at the same place
 //create an array of img
-
+let startBtn = document.querySelector('.start');
+let mainGrid = document.querySelector('section #container')
 let images = []
 for(let i=0;i<16;i++)
 {
@@ -8,9 +9,11 @@ for(let i=0;i<16;i++)
 }
 const divs = document.querySelectorAll('section  section  div')
 
-window.addEventListener('load',()=>{
+startBtn.addEventListener('click',()=>{
+    mainGrid.classList.add("grid-container")
     for(let i = 0;i<16;i++)
     {
+        
         divs[i].classList.add("grid")
         divs[i].innerHTML = images[i];
         
@@ -83,8 +86,8 @@ function mainMeat()
 //adding event to each grid
 for(let i=0;i<16;i++)
 divs[i].addEventListener('click',mainMeat)
+
 let displayTime = document.querySelector('.timeBar')
-let startBtn = document.querySelector('.start');
 let pauseBtn = document.querySelector('.pause');
 let resetBtn = document.querySelector('.reset');
 let countDown = null;
