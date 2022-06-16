@@ -6,15 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mind your clicks</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="headerStyles.css">
 </head>
 <body>
     <section class="layout">
         <div class="header">
-            <div class="timer"></div>
-            <div class="logo"></div>
-            <div class="score"></div>
+            <div class="timer">
+                <div class="timeBar">
+                    60
+                </div>
+                <div class="buttons">
+                    <div class="pauseDiv"><button class="pause">Pause</button></div>
+                    <div class="resetDiv"><button class="reset">Reset</button></div>
+                </div>
+            </div>
+            <div class="logo">
+                <div class="gameName">Poke One</div>
+                <div class="startDiv"><button class="start">Start</button></div>
+            </div>
+            <div class="score">
+                <div class="highScore">High Score: </div>
+                <div class="currentScore">Current Score: </div>
+            </div>
         </div>
         <div class="game"></div>
     </section>
+
+    <script src="code.js"></script>
 </body>
 </html>
