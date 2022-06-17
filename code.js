@@ -19,7 +19,10 @@ startBtn.addEventListener('click',()=>{
         
     }
 })
-
+    let hScore = document.querySelector('#highscorenumber')
+    let hName = document.querySelector('#highscorename')
+    let cScore = document.querySelector('#currscorenumber')
+    let cName = document.querySelector('#currscorename')
 
 
 function rearrange(inputArray){
@@ -40,7 +43,7 @@ function rearrange(inputArray){
     }
 
     let isClicked = new Array(16).fill(false)
-    let finalScore = 0;
+    let currScore = 0;
     let highScore = 0;
 
 function reshuffleImages(){
@@ -54,39 +57,75 @@ function mainMeat()
     //below line gets the id of image in the div
     let index = this.firstElementChild.id;
     //if u click all the 16 unique then only will this if condition will be executed
-    if(finalScore==15 && isClicked[index]==false)
+    if(currScore==15 && isClicked[index]==false)
     {
-        highScore = finalScore+1;
+        highScore = currScore+1;
+        currScore+=1;//this is far that displaying score thing inside the function displayRecord()
         alert(`final score is ${highScore} and Max score is ${highScore}`)
-        finalScore = 0;
         isClicked.fill(false)
         rearrange(images)
         reshuffleImages();
+        displayScore();
+        currScore = 0;
         return;
 
     }
     //if u dont click all the 16 and end your game in between
     if(isClicked[index])
     {
-        alert(`final score is ${finalScore} and Max score is ${highScore}`)
-        finalScore = 0;
+        alert(`final score is ${currScore} and Max score is ${highScore}`)
         //reset the game here
         isClicked.fill(false)
         rearrange(images)
         reshuffleImages();
+        displayScore();
+        currScore = 0;
         return;
     }
-    finalScore++;
-    highScore = Math.max(highScore,finalScore)
+    currScore++;
+    highScore = Math.max(highScore,currScore)
     isClicked[index] = true;
     rearrange(images);
     reshuffleImages();
 }
 
+
+
 //adding event to each grid
 for(let i=0;i<16;i++)
 divs[i].addEventListener('click',mainMeat)
 
+
+function displayScore(){
+    const name = prompt("Whats your name player?");
+    
+    if(hScore.innerHTML==0)
+    {
+        console.log("high=0")
+        hScore.innerHTML = highScore;
+        hName.innerHTML = name;
+        cScore.innerHTML = currScore;
+        cName.innerHTML = name;
+    }
+    else if(hScore.innerHTML!=0)
+    {
+        if(cScore.innerHTML>=hScore.innerHTML)
+        {
+            console.log("cur>high")
+        hScore.innerHTML = highScore;
+        hName.innerHTML = name;
+        cScore.innerHTML = currScore;
+        cName.innerHTML = name;
+        }
+        else if(cScore.innerHTML<hScore.innerHTML)
+        {
+            console.log("curr<high")
+            cScore.innerHTML = currScore;
+            cName.innerHTML = name;
+
+        }
+    }
+}
 let displayTime = document.querySelector('.timeBar')
 let pauseBtn = document.querySelector('.pause');
 let resetBtn = document.querySelector('.reset');
@@ -106,7 +145,7 @@ function start() {
         if (secs === 0) {
             clearInterval(countDown);
             secs = 60;
-            counDown = null; 
+            countDown = null; 
             
         }
         if (secs<10 && secs > 0)
