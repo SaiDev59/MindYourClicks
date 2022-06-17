@@ -10,7 +10,8 @@ for(let i=0;i<16;i++)
 const divs = document.querySelectorAll('section  section  div')
 
 startBtn.addEventListener('click',()=>{
-    mainGrid.classList.add("grid-container")
+    mainGrid.classList.add("grid-container");
+    mainGrid.classList.remove("gridBlur");
     for(let i = 0;i<16;i++)
     {
         
@@ -68,13 +69,28 @@ function mainMeat()
     //if u dont click all the 16 and end your game in between
     if(isClicked[index])
     {
+        clearInterval(countDown);
+        countDown = null;
+        secs = 60;
+        displayTime.innerHTML = secs;
         alert(`final score is ${finalScore} and Max score is ${highScore}`)
         finalScore = 0;
         //reset the game here
-        isClicked.fill(false)
+
+        isClicked.fill(false);
         rearrange(images)
         reshuffleImages();
+
+        mainGrid.classList.remove("grid-container")
+        for(let i = 0;i<16;i++)
+        {
+            
+            divs[i].classList.remove("grid");
+            divs[i].innerHTML = "";
+            
+        }
         return;
+
     }
     finalScore++;
     highScore = Math.max(highScore,finalScore)
@@ -87,7 +103,9 @@ function mainMeat()
 for(let i=0;i<16;i++)
 divs[i].addEventListener('click',mainMeat)
 
-let displayTime = document.querySelector('.timeBar')
+// buttons logic
+
+let displayTime = document.querySelector('.displayTime')
 let pauseBtn = document.querySelector('.pause');
 let resetBtn = document.querySelector('.reset');
 let countDown = null;
@@ -98,6 +116,7 @@ pauseBtn.addEventListener('click', pause);
 resetBtn.addEventListener('click', reset);
 
 function start() {
+    document.querySelector('.start').innerHTML = "Start";
     if(countDown) {
         return
     }
@@ -106,8 +125,19 @@ function start() {
         if (secs === 0) {
             clearInterval(countDown);
             secs = 60;
-            counDown = null; 
-            
+            countDown = null; 
+            alert(`final score is ${finalScore} and Max score is ${highScore}`)
+            finalScore = 0;
+            isClicked.fill(false);
+            mainGrid.classList.remove("grid-container")
+            for(let i = 0;i<16;i++)
+            {
+                
+                divs[i].classList.remove("grid");
+                divs[i].innerHTML = "";
+                
+            }
+
         }
         if (secs<10 && secs > 0)
             displayTime.innerHTML = "0" + secs;
@@ -116,14 +146,35 @@ function start() {
 }
 
 function pause () {
+    mainGrid.classList.add("gridBlur");
+    document.querySelector('.start').innerHTML = "Resume";
     clearInterval(countDown);
     countDown = null;
 }
 
 function reset () {
-    clearInterval(countDown);
-    countDown = null;
-    secs = 60;
-    displayTime.innerHTML = secs;
+    if(!countDown) {
+        return;
+    }
+    let toConfirm = confirm("Are you sure?");
+    if (!toConfirm) {
+        return;
+    }
+    else if(toConfirm) {
+        clearInterval(countDown);
+        countDown = null;
+        secs = 60;
+        displayTime.innerHTML = secs;
+        finalScore = 0;
+        isClicked.fill(false)
 
+        mainGrid.classList.remove("grid-container")
+        for(let i = 0;i<16;i++)
+        {
+            
+            divs[i].classList.remove("grid");
+            divs[i].innerHTML = "";
+            
+        }
+    }
 }
