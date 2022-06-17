@@ -79,8 +79,7 @@ function mainMeat()
         countDown = null;
         secs = 60;
         displayTime.innerHTML = secs;
-        alert(`final score is ${finalScore} and Max score is ${highScore}`)
-        finalScore = 0;
+        alert(`final score is ${currScore} and Max score is ${highScore}`)
         //reset the game here
 
         isClicked.fill(false);
@@ -125,9 +124,9 @@ function displayScore(){
         cScore.innerHTML = currScore;
         cName.innerHTML = name;
     }
-    else if(hScore.innerHTML!=0)
+    else if(parseInt(hScore.innerHTML)!=0)
     {
-        if(cScore.innerHTML>=hScore.innerHTML)
+        if(parseInt(cScore.innerHTML)>=parseInt(hScore.innerHTML))
         {
             console.log("cur>high")
         hScore.innerHTML = highScore;
@@ -135,7 +134,7 @@ function displayScore(){
         cScore.innerHTML = currScore;
         cName.innerHTML = name;
         }
-        else if(cScore.innerHTML<hScore.innerHTML)
+        else if(parseInt(cScore.innerHTML)<parseInt(hScore.innerHTML))
         {
             console.log("curr<high")
             cScore.innerHTML = currScore;
@@ -167,8 +166,8 @@ function start() {
             secs = 60;
             countDown = null; 
             
-            alert(`final score is ${finalScore} and Max score is ${highScore}`)
-            finalScore = 0;
+            alert(`final score is ${currScore} and Max score is ${highScore}`)
+            currScore = 0;
             isClicked.fill(false);
             mainGrid.classList.remove("grid-container")
             for(let i = 0;i<16;i++)
@@ -206,7 +205,7 @@ function reset () {
         countDown = null;
         secs = 60;
         displayTime.innerHTML = secs;
-        finalScore = 0;
+        currScore = 0;
         isClicked.fill(false)
 
         mainGrid.classList.remove("grid-container")
