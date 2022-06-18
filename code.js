@@ -115,8 +115,10 @@ divs[i].addEventListener('click',mainMeat)
 
 function displayScore(){
     const name = prompt("Whats your name player?");
+    hScore.innerHTML = highScore;
+    cScore.innerHTML = currScore
     
-    if(hScore.innerHTML==0)
+    if(hScore.innerHTML=="")
     {
         console.log("high=0")
         hScore.innerHTML = highScore;
