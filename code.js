@@ -13,13 +13,8 @@ const divs = document.querySelectorAll('section  section  div')
 startBtn.addEventListener('click',()=>{
     mainGrid.classList.add("grid-container");
     mainGrid.classList.remove("gridBlur");
-    for(let i = 0;i<16;i++)
-    {
-        
-        divs[i].classList.add("grid")
-        divs[i].innerHTML = images[i];
-        
-    }
+    showGame();
+    
 })
     let hScore = document.querySelector('#highscorenumber')
     let hName = document.querySelector('#highscorename')
@@ -54,6 +49,25 @@ function reshuffleImages(){
         divs[i].innerHTML = images[i];
     }
 }
+function showGame(){
+    for(let i = 0;i<16;i++)
+    {
+        
+        divs[i].classList.add("grid")
+        divs[i].innerHTML = images[i];
+        
+    }
+}
+function hideGame(){
+    mainGrid.classList.remove("grid-container")
+        for(let i = 0;i<16;i++)
+        {
+            
+            divs[i].classList.remove("grid");
+            divs[i].innerHTML = "";
+            
+        }
+}
 function mainMeat()
 {
     //below line gets the id of image in the div
@@ -69,6 +83,7 @@ function mainMeat()
         reshuffleImages();
         displayScore();
         currScore = 0;
+        hideGame();
         return;
 
     }
@@ -87,15 +102,7 @@ function mainMeat()
         reshuffleImages();
         displayScore();
         currScore = 0;
-
-        mainGrid.classList.remove("grid-container")
-        for(let i = 0;i<16;i++)
-        {
-            
-            divs[i].classList.remove("grid");
-            divs[i].innerHTML = "";
-            
-        }
+        hideGame();
         return;
 
     }
@@ -157,6 +164,7 @@ pauseBtn.addEventListener('click', pause);
 resetBtn.addEventListener('click', reset);
 
 function start() {
+    //if its resume then the b`elow button will change this to start
     document.querySelector('.start').innerHTML = "Start";
     if(countDown) {
         return
@@ -169,16 +177,10 @@ function start() {
             countDown = null; 
             
             alert(`final score is ${currScore} and Max score is ${highScore}`)
-            currScore = 0;
             isClicked.fill(false);
-            mainGrid.classList.remove("grid-container")
-            for(let i = 0;i<16;i++)
-            {
-                
-                divs[i].classList.remove("grid");
-                divs[i].innerHTML = "";
-                
-            }
+            displayScore();
+            currScore = 0;
+            hideGame();
 
         }
         if (secs<10 && secs > 0)
@@ -191,7 +193,8 @@ function pause () {
     mainGrid.classList.add("gridBlur");
     document.querySelector('.start').innerHTML = "Resume";
     clearInterval(countDown);
-    countDown = null;
+    countDown=null;
+
 }
 
 function reset () {
@@ -208,15 +211,7 @@ function reset () {
         secs = 60;
         displayTime.innerHTML = secs;
         currScore = 0;
-        isClicked.fill(false)
-
-        mainGrid.classList.remove("grid-container")
-        for(let i = 0;i<16;i++)
-        {
-            
-            divs[i].classList.remove("grid");
-            divs[i].innerHTML = "";
-            
-        }
+        isClicked.fill(false);
+        hideGame();
     }
 }
