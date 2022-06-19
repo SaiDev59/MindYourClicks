@@ -166,12 +166,16 @@ resetBtn.addEventListener('click', reset);
 function start() {
     //if its resume then the b`elow button will change this to start
     document.querySelector('.start').innerHTML = "Start";
+    //below 2 line code is so that after game is paused i shouldnt see the hover effect on game tiles
+    for(let i=0;i<16;i++)
+    divs[i].classList.remove("noHover")
     if(countDown) {
         return
     }
     countDown = setInterval(function() {
         secs--;
         if (secs === 0) {
+            displayTime.innerHTML = "0" + secs;
             clearInterval(countDown);
             secs = 60;
             countDown = null; 
@@ -191,6 +195,9 @@ function start() {
 
 function pause () {
     mainGrid.classList.add("gridBlur");
+    //below 2 line code is so that after game is paused i shouldnt see the hover effect on game tiles
+    for(let i=0;i<16;i++)
+    divs[i].classList.add("noHover")
     document.querySelector('.start').innerHTML = "Resume";
     clearInterval(countDown);
     countDown=null;
@@ -214,4 +221,5 @@ function reset () {
         isClicked.fill(false);
         hideGame();
     }
+    //lets add one option to reset the scorecards
 }
