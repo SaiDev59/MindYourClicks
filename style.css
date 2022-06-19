@@ -123,3 +123,6 @@
 .startDiv {
     align-self: center;
 }
+.noHover{
+    pointer-events: none;
+}
