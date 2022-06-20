@@ -194,6 +194,7 @@ function start() {
 }
 
 function pause () {
+    if (!countDown) return;
     mainGrid.classList.add("gridBlur");
     //below 2 line code is so that after game is paused i shouldnt see the hover effect on game tiles
     for(let i=0;i<16;i++)
