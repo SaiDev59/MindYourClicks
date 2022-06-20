@@ -156,7 +156,7 @@ function displayScore(){
 let pauseBtn = document.querySelector('.pause');
 let resetBtn = document.querySelector('.reset');
 let countDown = null;
-let secs = 60;
+let secs = 3;
 
 startBtn.addEventListener('click', start);
 pauseBtn.addEventListener('click', pause);
@@ -164,11 +164,13 @@ resetBtn.addEventListener('click', reset);
 
 function start() {
     //if its resume then the b`elow button will change this to start
+    
     document.querySelector('.start').innerHTML = "Start";
     //below 2 line code is so that after game is paused i shouldnt see the hover effect on game tiles
     for(let i=0;i<16;i++)
     divs[i].classList.remove("noHover")
     if(countDown) {
+        alert("the game is already Running!!")
         return
     }
     countDown = setInterval(function() {
@@ -192,6 +194,11 @@ function start() {
 }
 
 function pause () {
+    if(!countDown)
+    {
+        alert("the game is not started")
+        return
+    }
     mainGrid.classList.add("gridBlur");
     //below 2 line code is so that after game is paused i shouldnt see the hover effect on game tiles
     for(let i=0;i<16;i++)
@@ -203,7 +210,7 @@ function pause () {
 }
 
 function reset () {
-    if(!countDown) {
+    if(!countDown && document.querySelector('.start').innerHTML != "Resume") {
         return;
     }
     let toConfirm = confirm("Are you sure?");
@@ -218,6 +225,7 @@ function reset () {
         currScore = 0;
         isClicked.fill(false);
         hideGame();
+        document.querySelector('.start').innerHTML = "Start"
     }
     //lets add one option to reset the scorecards
 }
