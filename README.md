@@ -6,12 +6,12 @@ Game Description:
 On clicking the start button, you see a 4*4 grid with 16 distinct clickable pokemon images. Each time you click a disctinct image, you score a point. Click as many distinct images you can before the 60 seconds timer ends. 
 Good Luck!!!!!
 
-Directions to play
--Click on start button to start the game,pause button to pause the game at any time and Reset button to reset the game at any time.
--Click on an unclicked image to score points,maximum possible score is 16 
--Clicking on the same image Twice will terminate the game.
--If the timer runs out the game will be terminated again.
--If u want your name to appear in the highscore table then try to score >= to the highscore.
+## Directions to play
+#### -Click on start button to start the game,pause button to pause the game at any time and Reset button to reset the game at any time.
+#### -Click on an unclicked image to score points,maximum possible score is 16 
+#### -Clicking on the same image Twice will terminate the game.
+#### -If the timer runs out the game will be terminated again.
+#### -If u want your name to appear in the highscore table then try to score >= to the highscore.
 
 Features of PokeOne:
 
