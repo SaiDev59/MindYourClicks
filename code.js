@@ -4,9 +4,11 @@ let startBtn = document.querySelector('.start');
 let mainGrid = document.querySelector('section #container')
 let displayTime = document.querySelector('.displayTime')
 let images = []
-for(let i=0;i<16;i++)
+//the below code is done for getting new set of images in a game for a better experience
+let j =Math.floor(Math.random()*74)+10
+for(let i=0;i<16;i++,j++)
 {
-    images[i] = `<img id=${i} src= "Pictures/image${i}.png" width=100% height=100%>`
+    images[i] = `<img id=${i} src= "Pictures/00${j}.png" width=100% height=100%>`
 }
 const divs = document.querySelectorAll('section  section  div')
 
@@ -36,7 +38,6 @@ function rearrange(inputArray){
         //filling the emptied inputarray for later use
         for(var i of array2)
             inputArray.push(i)
-        return array2;
     }
 
     let isClicked = new Array(16).fill(false)
@@ -151,6 +152,10 @@ function displayScore(){
 
         }
     }
+    else{
+        hName.innerHTML = name;
+        cName.innerHTML = name;
+    }
 }
 // buttons logic
 
@@ -165,11 +170,13 @@ resetBtn.addEventListener('click', reset);
 
 function start() {
     //if its resume then the b`elow button will change this to start
+    
     document.querySelector('.start').innerHTML = "Start";
     //below 2 line code is so that after game is paused i shouldnt see the hover effect on game tiles
     for(let i=0;i<16;i++)
     divs[i].classList.remove("noHover")
     if(countDown) {
+        alert("the game is already Running!!")
         return
     }
     countDown = setInterval(function() {
@@ -179,7 +186,6 @@ function start() {
             clearInterval(countDown);
             secs = 60;
             countDown = null; 
-            
             alert(`final score is ${currScore} and Max score is ${highScore}`)
             isClicked.fill(false);
             displayScore();
@@ -194,7 +200,11 @@ function start() {
 }
 
 function pause () {
-    if (!countDown) return;
+    if(!countDown)
+    {
+        alert("the game is not started")
+        return
+    }
     mainGrid.classList.add("gridBlur");
     //below 2 line code is so that after game is paused i shouldnt see the hover effect on game tiles
     for(let i=0;i<16;i++)
@@ -206,7 +216,7 @@ function pause () {
 }
 
 function reset () {
-    if(!countDown) {
+    if(!countDown && document.querySelector('.start').innerHTML != "Resume") {
         return;
     }
     let toConfirm = confirm("Are you sure?");
@@ -221,6 +231,7 @@ function reset () {
         currScore = 0;
         isClicked.fill(false);
         hideGame();
+        document.querySelector('.start').innerHTML = "Start"
     }
     //lets add one option to reset the scorecards
 }
