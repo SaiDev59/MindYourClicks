@@ -4,9 +4,11 @@ let startBtn = document.querySelector('.start');
 let mainGrid = document.querySelector('section #container')
 let displayTime = document.querySelector('.displayTime')
 let images = []
-for(let i=0;i<16;i++)
+//the below code is done for getting new set of images in a game for a better experience
+let j =Math.floor(Math.random()*74)+10
+for(let i=0;i<16;i++,j++)
 {
-    images[i] = `<img id=${i} src= "Pictures/image${i}.png" width=100% height=100%>`
+    images[i] = `<img id=${i} src= "Pictures/00${j}.png" width=100% height=100%>`
 }
 const divs = document.querySelectorAll('section  section  div')
 
@@ -149,6 +151,10 @@ function displayScore(){
             cName.innerHTML = name;
 
         }
+    }
+    else{
+        hName.innerHTML = name;
+        cName.innerHTML = name;
     }
 }
 // buttons logic
