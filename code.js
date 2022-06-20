@@ -162,7 +162,7 @@ function displayScore(){
 let pauseBtn = document.querySelector('.pause');
 let resetBtn = document.querySelector('.reset');
 let countDown = null;
-let secs = 3;
+let secs = 60;
 
 startBtn.addEventListener('click', start);
 pauseBtn.addEventListener('click', pause);

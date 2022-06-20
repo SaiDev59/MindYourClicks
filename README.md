@@ -1,13 +1,10 @@
 # MindYourClicks
+POKE ONCE
 
 
+Game Description:
 
-Description: 
-
-The 4*4 grid has 16 distinct clickable images. 
-Each time you click a disctinct image, you score a point. 
-Click as many distinct images you can before the timer ends. 
-Note: Double clicking on a image will end your game. 
+On clicking the start button, you see a 4*4 grid with 16 distinct clickable pokemon images. Each time you click a disctinct image, you score a point. Click as many distinct images you can before the 60 seconds timer ends. 
 Good Luck!!!!!
 
 Features of PokeOne:
