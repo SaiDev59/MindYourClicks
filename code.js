@@ -36,7 +36,6 @@ function rearrange(inputArray){
         //filling the emptied inputarray for later use
         for(var i of array2)
             inputArray.push(i)
-        return array2;
     }
 
     let isClicked = new Array(16).fill(false)
@@ -179,7 +178,6 @@ function start() {
             clearInterval(countDown);
             secs = 60;
             countDown = null; 
-            
             alert(`final score is ${currScore} and Max score is ${highScore}`)
             isClicked.fill(false);
             displayScore();
