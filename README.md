@@ -1,5 +1,4 @@
-# MindYourClicks
-POKE ONCE
+# POKE ONE
 
 
 Game Description:
