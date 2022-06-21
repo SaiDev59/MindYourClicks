@@ -23,9 +23,7 @@ const resetBtn = document.querySelector('.reset');
 
 //EVENT LISTENERS----------------------------
 
-function divsEventListeners(index) {
-    index.addEventListener('click', mainMeat);
-}
+
 startBtn.addEventListener('click', start);
 pauseBtn.addEventListener('click', pause);
 resetBtn.addEventListener('click', reset);
@@ -49,7 +47,10 @@ const bindingEvents = (first, second) => {
     hideGame();
 }
 
-gameGrids.forEach(divsEventListeners);
+//adding event to all events
+gameGrids.forEach((index)=>{
+    index.addEventListener('click',mainMeat)
+});
 
 let j = Math.floor(Math.random() * 74) + 10
 
@@ -58,7 +59,7 @@ for (let i = 0; i < 16; i++, j++) {
 }
 
 function rearrange(inputArray) {
-    array2 = new Array();
+    let array2 = new Array();
     let counter = 0;
     const looplength = inputArray.length;
     for (let i = 0; i < looplength; i++) {
@@ -75,19 +76,26 @@ function rearrange(inputArray) {
 
 
 const reshuffleImages = () => {
-    for (let i = 0; i < 16; i++) {
-        gameGrids[i].innerHTML = images[i];  // Images have tags, so innerHTML has to be used.
-    }
+  
+    let j = 0;
+    gameGrids.forEach((index)=>{
+        
+        index.innerHTML = images[j]
+        j++;
+    })
+
 }
 const showGame = () => {
-    for (let i = 0; i < 16; i++) {
-        gameGrids[i].classList.add("grid")
-        gameGrids[i].innerHTML = images[i];
-    }
+    let j = 0;
+    gameGrids.forEach((index)=>{
+        index.classList.add("grid")
+        index.innerHTML = images[j]
+        j++;
+    })
 }
 function removing(index) {
     index.classList.remove("grid");
-    index.innerHTML = "";
+    index.textContent = "";
 }
 const hideGame = () => {
     mainGrid.classList.remove("grid-container");
@@ -107,19 +115,19 @@ function mainMeat() {
 
     }
     //If u dont click all the 16 and end your game in between
-    if (isClicked[index]) {
+    else if (isClicked[index]) {
         clockResetting();
         bindingEvents(currScore, highScore);
-        //Reset the game here
         isClicked.fill(false);
         return;
 
     }
+    else{
     currScore++;
     highScore = Math.max(highScore, currScore)
     isClicked[index] = true;
     rearrange(images);
-    reshuffleImages();
+    reshuffleImages();}
 }
 
 const displayScore = () => {
@@ -129,31 +137,31 @@ const displayScore = () => {
 
     // !hScore.innerHTML.length
 
-    if (hScore.innerHTML === "") {
+    if (!hScore.textContent) {
         scoreUpdate(name);
 
     }
-    else if (parseInt(hScore.innerHTML)) {
-        if (parseInt(cScore.innerHTML) >= parseInt(hScore.innerHTML)) {
+    else if (parseInt(hScore.textContent)) {
+        if (parseInt(cScore.textContent) >= parseInt(hScore.textContent)) {
             scoreUpdate(name);
         }
-        else if (parseInt(cScore.innerHTML) < parseInt(hScore.innerHTML)) {
-            cScore.innerHTML = currScore;
-            cName.innerHTML = name;
+        else if (parseInt(cScore.textContent) < parseInt(hScore.textContent)) {
+            cScore.textContent = currScore;
+            cName.textContent = name;
 
         }
     }
     else {
-        hName.innerHTML = name;
-        cName.innerHTML = name;
+        hName.textContent = name;
+        cName.textContent = name;
     }
 }
 
 function scoreUpdate(name) {
-    hScore.innerHTML = highScore;
-    hName.innerHTML = name;
-    cScore.innerHTML = currScore;
-    cName.innerHTML = name;
+    hScore.textContent = highScore;
+    hName.textContent = name;
+    cScore.textContent = currScore;
+    cName.textContent = name;
 }
 
 const removeHover = (index) => {
