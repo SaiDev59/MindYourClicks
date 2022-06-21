@@ -12,10 +12,10 @@ const mainGrid = document.querySelector('section #container')
 const displayTime = document.querySelector('.displayTime')
 
 const gameGrids = document.querySelectorAll('#container div')
-const hScore = document.querySelector('#highscorenumber')
-const hName = document.querySelector('#highscorename')
-const cScore = document.querySelector('#currscorenumber')
-const cName = document.querySelector('#currscorename')
+const highScoreArea = document.querySelector('#highscorenumber')
+const highScoreNameArea = document.querySelector('#highscorename')
+const currentScoreArea = document.querySelector('#currscorenumber')
+const currentScoreNameArea = document.querySelector('#currscorename')
 
 const pauseBtn = document.querySelector('.pause');
 const resetBtn = document.querySelector('.reset');
@@ -29,13 +29,12 @@ pauseBtn.addEventListener('click', pause);
 resetBtn.addEventListener('click', reset);
 
 // FUNCTIONS-----------------------------------
-//The below code is done for getting new set of images in a game for a better experience
 
 const clockResetting = () => {
     clearInterval(countDown);
     countDown = null;
     secs = 60;
-    displayTime.innerHTML = secs;
+    displayTime.textContent = secs;
 }
 
 const bindingEvents = (first, second) => {
@@ -53,10 +52,12 @@ gameGrids.forEach((index)=>{
 });
 
 let j = Math.floor(Math.random() * 74) + 10
-//Wasef bhaiya since the array is initially empty so i didnt got the solution as to how to fill the image array by using forEach,map method 
-for (let i = 0; i < 16; i++, j++) {
-    images[i] = `<img id=${i} src= "Pictures/00${j}.png" width=100% height=100%>`
-}
+//Below forEach is for inputting pictures inside image array
+isClicked.forEach((input,index)=>{
+    images[index] = `<img id=${index} src= "Pictures/00${j}.png" width=100% height=100%>`
+    j++;
+})
+
 
 
 function rearrange(inputArray) {
@@ -70,8 +71,9 @@ function rearrange(inputArray) {
         counter++;
     }
     //Filling the emptied inputarray for later use
-    for (let i of array2)
-        inputArray.push(i)
+    array2.forEach((index)=>{
+        inputArray.push(index)
+    })
 }
 
 
@@ -94,13 +96,13 @@ const showGame = () => {
         j++;
     })
 }
-function removing(index) {
-    index.classList.remove("grid");
-    index.textContent = "";
-}
+
 const hideGame = () => {
     mainGrid.classList.remove("grid-container");
-    gameGrids.forEach(removing);
+    gameGrids.forEach((index)=>{
+        index.classList.remove("grid")
+        index.textContent = "";
+    });
 }
 function mainMeat() {
     //Below line gets the id of image in the div
@@ -133,40 +135,36 @@ function mainMeat() {
 
 const displayScore = () => {
     const name = prompt("Whats your name player?");
-    hScore.textContent = highScore;
-    cScore.textContent = currScore;
+    highScoreArea.textContent = highScore;
+    currentScoreArea.textContent = currScore;
 
     // !hScore.innerHTML.length
 
-    if (!hScore.textContent) {
+    if (!highScoreArea.textContent) {
         scoreUpdate(name);
 
     }
-    else if (parseInt(hScore.textContent)) {
-        if (parseInt(cScore.textContent) >= parseInt(hScore.textContent)) {
+    else if (parseInt(highScoreArea.textContent)) {
+        if (parseInt(currentScoreArea.textContent) >= parseInt(highScoreArea.textContent)) {
             scoreUpdate(name);
         }
-        else if (parseInt(cScore.textContent) < parseInt(hScore.textContent)) {
-            cScore.textContent = currScore;
-            cName.textContent = name;
+        else if (parseInt(currentScoreArea.textContent) < parseInt(highScoreArea.textContent)) {
+            currentScoreArea.textContent = currScore;
+            currentScoreNameArea.textContent = name;
 
         }
     }
     else {
-        hName.textContent = name;
-        cName.textContent = name;
+        highScoreNameArea.textContent = name;
+        currentScoreNameArea.textContent = name;
     }
 }
 
 function scoreUpdate(name) {
-    hScore.textContent = highScore;
-    hName.textContent = name;
-    cScore.textContent = currScore;
-    cName.textContent = name;
-}
-
-const removeHover = (index) => {
-    index.classList.remove("noHover");
+    highScoreArea.textContent = highScore;
+    highScoreNameArea.textContent = name;
+    currentScoreArea.textContent = currScore;
+    currentScoreNameArea.textContent = name;
 }
 
 function timeRun () {
@@ -192,7 +190,9 @@ function start() {
     mainGrid.classList.remove("gridBlur");
     showGame();
     //Below 2 line code is so that after game is paused i shouldnt see the hover effect on game tiles
-    gameGrids.forEach(removeHover)
+    gameGrids.forEach((index)=>{
+        index.classList.remove("noHover")
+    })
     if (countDown) {
         alert("the game is already Running!!")
         return
@@ -206,7 +206,6 @@ function pause() {
         return
     }
     mainGrid.classList.add("gridBlur");
-    //to remove hover effect
     gameGrids.forEach((index) => {
         index.classList.add("noHover");
     })
@@ -229,6 +228,6 @@ function reset() {
         currScore = 0;
         isClicked.fill(false);
         hideGame();
-        document.querySelector('.start').textContent = "Start"
+        startBtn.textContent = "Start"
     }
 }
