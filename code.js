@@ -82,9 +82,14 @@ function mainMeat()
         isClicked.fill(false)
         rearrange(images)
         reshuffleImages();
+        clearInterval(countDown);
+        countDown = null;
+        secs = 60;
+        displayTime.innerHTML = secs;
         displayScore();
         currScore = 0;
         hideGame();
+
         return;
 
     }
@@ -180,6 +185,7 @@ function start() {
         return
     }
     countDown = setInterval(function() {
+
         secs--;
         if (secs === 0) {
             displayTime.innerHTML = "0" + secs;
