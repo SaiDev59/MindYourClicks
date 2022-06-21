@@ -53,10 +53,11 @@ gameGrids.forEach((index)=>{
 });
 
 let j = Math.floor(Math.random() * 74) + 10
-
+//Wasef bhaiya since the array is initially empty so i didnt got the solution as to how to fill the image array by using forEach,map method 
 for (let i = 0; i < 16; i++, j++) {
     images[i] = `<img id=${i} src= "Pictures/00${j}.png" width=100% height=100%>`
 }
+
 
 function rearrange(inputArray) {
     let array2 = new Array();
@@ -105,7 +106,7 @@ function mainMeat() {
     //Below line gets the id of image in the div
     let index = this.firstElementChild.id;
     //If u click all the 16 unique then only will this if condition will be executed
-    if (currScore === 15 && isClicked[index] === false) {
+    if (currScore === 15 && !isClicked[index]) {
         highScore = currScore + 1;
         currScore += 1;//This is far that displaying score thing inside the function displayRecord()
         bindingEvents(highScore, highScore);
