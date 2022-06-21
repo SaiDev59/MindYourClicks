@@ -76,7 +76,7 @@ function rearrange(inputArray) {
 
 const reshuffleImages = () => {
     for (let i = 0; i < 16; i++) {
-        gameGrids[i].innerHTML = images[i]; // Images have tags, so innerHTML has to be used.
+        gameGrids[i].innerHTML = images[i];  // Images have tags, so innerHTML has to be used.
     }
 }
 const showGame = () => {
@@ -160,9 +160,25 @@ const removeHover = (index) => {
     index.classList.remove("noHover");
 }
 
+function timeRun () {
+    secs--;
+    if (secs === 0) {
+        clockResetting();
+        alert(`final score is ${currScore} and Max score is ${highScore}`)
+        isClicked.fill(false);
+        displayScore();
+        currScore = 0;
+        hideGame();
+
+    }
+    else if (secs < 10 && secs > 0)
+        displayTime.textContent = "0" + secs;
+    else displayTime.textContent = secs;
+}
+
 function start() {
     //If its resume then the b`elow button will change this to start.
-    document.querySelector('.start').innerHTML = "Start";
+    startBtn.textContent = "Start";
     mainGrid.classList.add("grid-container");
     mainGrid.classList.remove("gridBlur");
     showGame();
@@ -172,22 +188,7 @@ function start() {
         alert("the game is already Running!!")
         return
     }
-    countDown = setInterval(function () {
-
-        secs--;
-        if (secs === 0) {
-            clockResetting();
-            alert(`final score is ${currScore} and Max score is ${highScore}`)
-            isClicked.fill(false);
-            displayScore();
-            currScore = 0;
-            hideGame();
-
-        }
-        if (secs < 10 && secs > 0)
-            displayTime.innerHTML = "0" + secs;
-        else displayTime.innerHTML = secs;
-    }, 1000)
+    countDown = setInterval(timeRun, 1000);
 }
 
 function pause() {
@@ -196,17 +197,18 @@ function pause() {
         return
     }
     mainGrid.classList.add("gridBlur");
-    //Below 2 line code is so that after game is paused i shouldnt see the hover effect on game tiles
-    for (let i = 0; i < 16; i++)
-        gameGrids[i].classList.add("noHover")
-    document.querySelector('.start').innerHTML = "Resume";
+    //to remove hover effect
+    gameGrids.forEach((index) => {
+        index.classList.add("noHover");
+    })
+    startBtn.textContent = "Resume";
     clearInterval(countDown);
     countDown = null;
 
 }
 
 function reset() {
-    if (!countDown && document.querySelector('.start').innerHTML != "Resume") {
+    if (!countDown && startBtn.textContent != "Resume") {
         return;
     }
     const toConfirm = confirm("Are you sure?");
@@ -218,6 +220,6 @@ function reset() {
         currScore = 0;
         isClicked.fill(false);
         hideGame();
-        document.querySelector('.start').innerHTML = "Start"
+        document.querySelector('.start').textContent = "Start"
     }
 }
