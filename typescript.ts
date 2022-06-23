@@ -155,6 +155,7 @@ const displayScore = () : void=> {
         reshuffleImages();
         currScore = 0;
         hideGame();
+        return;
     }
     highScoreArea.textContent = highScore.toString();
     currentScoreArea.textContent = currScore.toString();
@@ -197,6 +198,7 @@ function timeRun () : void{
         displayScore();
         currScore = 0;
         hideGame();
+        return;
 
     }
     else if(displayTime)
@@ -206,7 +208,7 @@ function timeRun () : void{
     }
 }
 
-function start() {
+function start() :void{
     //If its resume then the b`elow button will change this to start.
     startBtn.textContent = "Start";
     mainGrid.classList.add("grid-container");

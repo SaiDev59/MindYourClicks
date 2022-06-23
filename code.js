@@ -130,6 +130,7 @@ const displayScore = () => {
         reshuffleImages();
         currScore = 0;
         hideGame();
+        return;
     }
     highScoreArea.textContent = highScore.toString();
     currentScoreArea.textContent = currScore.toString();
