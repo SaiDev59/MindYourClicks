@@ -126,9 +126,10 @@ const displayScore = () => {
     if (name === null) {
         clockResetting();
         isClicked.fill(false);
+        rearrange(images);
+        reshuffleImages();
         currScore = 0;
         hideGame();
-        return;
     }
     highScoreArea.textContent = highScore.toString();
     currentScoreArea.textContent = currScore.toString();
@@ -218,3 +219,4 @@ function reset() {
         startBtn.textContent = "Start";
     }
 }
+
