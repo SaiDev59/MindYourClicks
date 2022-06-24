@@ -121,11 +121,12 @@ const hideGame = (): void => {
     });
 };
 //changed to typescript
-function mainMeat(event: PointerEvent): void {
-  //Below line gets the id of image in the div
-  let index: number | null;
-  if (event.target) {
-    index = parseInt((event.target as HTMLInputElement).id);
+
+function mainMeat(event : MouseEvent) : void {
+    //Below line gets the id of image in the div
+    let index: number | null
+    if (event.target){
+    index  = parseInt((event.target as HTMLInputElement).id)
     //If u click all the 16 unique then only will this if condition will be executed
     if (currScore === 15 && !isClicked[index]) {
       highScore = currScore + 1;
