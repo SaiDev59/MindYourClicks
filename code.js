@@ -1,3 +1,4 @@
+//changed to typescript
 let images = [];
 const gridLength = 16;
 let isClicked = new Array(gridLength).fill(false);
@@ -7,27 +8,31 @@ let highScore = 0;
 let countDown = null;
 let secs = 60;
 //sai do the 3 below
-const startBtn = document.querySelector('.start');
-const mainGrid = document.querySelector('section #container');
-const displayTime = document.querySelector('.displayTime');
-const gameGrids = document.querySelectorAll('#container div');
-const highScoreArea = document.querySelector('#highscorenumber');
-const highScoreNameArea = document.querySelector('#highscorename');
-const currentScoreArea = document.querySelector('#currscorenumber');
-const currentScoreNameArea = document.querySelector('#currscorename');
-const pauseBtn = document.querySelector('.pause');
-const resetBtn = document.querySelector('.reset');
+const startBtn = document.querySelector(".start");
+const mainGrid = document.querySelector("section #container");
+const displayTime = document.querySelector(".displayTime");
+const gameGrids = document.querySelectorAll("#container div");
+const highScoreArea = document.querySelector("#highscorenumber");
+const highScoreNameArea = document.querySelector("#highscorename");
+const currentScoreArea = document.querySelector("#currscorenumber");
+const currentScoreNameArea = document.querySelector("#currscorename");
+const pauseBtn = document.querySelector(".pause");
+const resetBtn = document.querySelector(".reset");
 //EVENT LISTENERS----------------------------
-startBtn.addEventListener('click', start);
-pauseBtn.addEventListener('click', pause);
-resetBtn.addEventListener('click', reset);
+if (startBtn)
+    startBtn.addEventListener("click", start);
+if (pauseBtn)
+    pauseBtn.addEventListener("click", pause);
+if (resetBtn)
+    resetBtn.addEventListener("click", reset);
 // FUNCTIONS-----------------------------------
 const clockResetting = () => {
     if (countDown)
         clearInterval(countDown);
     countDown = null;
     secs = 60;
-    displayTime.textContent = secs.toString();
+    if (displayTime)
+        displayTime.textContent = secs.toString();
 };
 //changed to typescript
 const bindingEvents = (first, second) => {
@@ -39,9 +44,10 @@ const bindingEvents = (first, second) => {
     hideGame();
 };
 //nochange
-gameGrids.forEach((index) => {
-    index.addEventListener('click', mainMeat);
-});
+if (gameGrids)
+    gameGrids.forEach((index) => {
+        index.addEventListener("click", mainMeat);
+    });
 //changed to typescript
 let j = Math.floor(Math.random() * 74) + 10;
 //Below forEach is for inputting pictures inside image array
@@ -69,27 +75,31 @@ function rearrange(inputArray) {
 //changed to typescript
 const reshuffleImages = () => {
     let j = 0;
-    gameGrids.forEach((index) => {
-        index.innerHTML = images[j];
-        j++;
-    });
+    if (gameGrids)
+        gameGrids.forEach((index) => {
+            index.innerHTML = images[j];
+            j++;
+        });
 };
 //changed to typescript
 const showGame = () => {
     let j = 0;
-    gameGrids.forEach((index) => {
-        index.classList.add("grid");
-        index.innerHTML = images[j];
-        j++;
-    });
+    if (gameGrids)
+        gameGrids.forEach((index) => {
+            index.classList.add("grid");
+            index.innerHTML = images[j];
+            j++;
+        });
 };
 //chagned to typescript
 const hideGame = () => {
-    mainGrid.classList.remove("grid-container");
-    gameGrids.forEach((index) => {
-        index.classList.remove("grid");
-        index.textContent = "";
-    });
+    if (mainGrid)
+        mainGrid.classList.remove("grid-container");
+    if (gameGrids)
+        gameGrids.forEach((index) => {
+            index.classList.remove("grid");
+            index.textContent = "";
+        });
 };
 //changed to typescript
 function mainMeat(event) {
@@ -132,31 +142,46 @@ const displayScore = () => {
         hideGame();
         return;
     }
-    highScoreArea.textContent = highScore.toString();
-    currentScoreArea.textContent = currScore.toString();
+    if (highScoreArea)
+        highScoreArea.textContent = highScore.toString();
+    if (currentScoreArea)
+        currentScoreArea.textContent = currScore.toString();
     // !hScore.innerHTML.length
-    if (!highScoreArea.textContent) {
-        scoreUpdate(name.toString());
-    }
-    else if (parseInt(highScoreArea.textContent)) {
-        if (parseInt(currentScoreArea.textContent) >= parseInt(highScoreArea.textContent)) {
+    if (highScoreArea)
+        if (!highScoreArea.textContent) {
             scoreUpdate(name.toString());
         }
-        else if (parseInt(currentScoreArea.textContent) < parseInt(highScoreArea.textContent)) {
-            currentScoreArea.textContent = currScore.toString();
-            currentScoreNameArea.textContent = name.toString();
+        else if (parseInt(highScoreArea.textContent)) {
+            if ((currentScoreArea === null || currentScoreArea === void 0 ? void 0 : currentScoreArea.textContent) &&
+                parseInt(currentScoreArea.textContent) >=
+                    parseInt(highScoreArea.textContent)) {
+                scoreUpdate(name.toString());
+            }
+            else if ((currentScoreArea === null || currentScoreArea === void 0 ? void 0 : currentScoreArea.textContent) &&
+                parseInt(currentScoreArea.textContent) <
+                    parseInt(highScoreArea.textContent)) {
+                if (currentScoreArea)
+                    currentScoreArea.textContent = currScore.toString();
+                if (currentScoreNameArea)
+                    currentScoreNameArea.textContent = name.toString();
+            }
         }
-    }
-    else {
-        highScoreNameArea.textContent = name.toString();
-        currentScoreNameArea.textContent = name.toString();
-    }
+        else {
+            if (highScoreNameArea)
+                highScoreNameArea.textContent = name.toString();
+            if (currentScoreNameArea)
+                currentScoreNameArea.textContent = name.toString();
+        }
 };
 function scoreUpdate(name) {
-    highScoreArea.textContent = highScore.toString();
-    highScoreNameArea.textContent = name.toString();
-    currentScoreArea.textContent = currScore.toString();
-    currentScoreNameArea.textContent = name.toString();
+    if (highScoreArea)
+        highScoreArea.textContent = highScore.toString();
+    if (highScoreNameArea)
+        highScoreNameArea.textContent = name.toString();
+    if (currentScoreArea)
+        currentScoreArea.textContent = currScore.toString();
+    if (currentScoreNameArea)
+        currentScoreNameArea.textContent = name.toString();
 }
 function timeRun() {
     secs--;
@@ -167,6 +192,7 @@ function timeRun() {
         displayScore();
         currScore = 0;
         hideGame();
+        return;
     }
     else if (displayTime) {
         if (secs < 10 && secs > 0)
@@ -177,14 +203,18 @@ function timeRun() {
 }
 function start() {
     //If its resume then the b`elow button will change this to start.
-    startBtn.textContent = "Start";
-    mainGrid.classList.add("grid-container");
-    mainGrid.classList.remove("gridBlur");
+    if (startBtn)
+        startBtn.textContent = "Start";
+    if (mainGrid)
+        mainGrid.classList.add("grid-container");
+    if (mainGrid)
+        mainGrid.classList.remove("gridBlur");
     showGame();
     //Below 2 line code is so that after game is paused i shouldnt see the hover effect on game tiles
-    gameGrids.forEach((index) => {
-        index.classList.remove("noHover");
-    });
+    if (gameGrids)
+        gameGrids.forEach((index) => {
+            index.classList.remove("noHover");
+        });
     if (countDown) {
         alert("the game is already Running!!");
         return;
@@ -196,16 +226,19 @@ function pause() {
         alert("the game is not started");
         return;
     }
-    mainGrid.classList.add("gridBlur");
-    gameGrids.forEach((index) => {
-        index.classList.add("noHover");
-    });
-    startBtn.textContent = "Resume";
+    if (mainGrid)
+        mainGrid.classList.add("gridBlur");
+    if (gameGrids)
+        gameGrids.forEach((index) => {
+            index.classList.add("noHover");
+        });
+    if (startBtn)
+        startBtn.textContent = "Resume";
     clearInterval(countDown);
     countDown = null;
 }
 function reset() {
-    if (!countDown && startBtn.textContent != "Resume") {
+    if (!countDown && (startBtn === null || startBtn === void 0 ? void 0 : startBtn.textContent) && startBtn.textContent != "Resume") {
         return;
     }
     const toConfirm = confirm("Are you sure?");
@@ -217,7 +250,7 @@ function reset() {
         currScore = 0;
         isClicked.fill(false);
         hideGame();
-        startBtn.textContent = "Start";
+        if (startBtn)
+            startBtn.textContent = "Start";
     }
 }
-
