@@ -113,7 +113,7 @@ const hideGame = ():void => {
     });
 }
 //changed to typescript
-function mainMeat(event : Event) : void {
+function mainMeat(event : MouseEvent) : void {
     //Below line gets the id of image in the div
     let index: number | null
     if (event.target){
